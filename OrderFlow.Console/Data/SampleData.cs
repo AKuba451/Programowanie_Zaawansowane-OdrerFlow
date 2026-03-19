@@ -1,6 +1,6 @@
-﻿using System.Runtime.InteropServices.JavaScript;
+﻿using ConsoleApp1.Models;
 
-namespace ConsoleApp1;
+namespace ConsoleApp1.Data;
 
 public static class SampleData
 {

@@ -8,17 +8,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="18dbb134-dc11-4209-9c33-83e10972c4ee" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ConsoleApp1/OrderStatus.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ConsoleApp1/SampleData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ConsoleApp1/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ConsoleApp1/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ConsoleApp1/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ConsoleApp1/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConsoleApp1.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Zad1.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConsoleApp1/Customer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConsoleApp1/Customer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConsoleApp1/Order.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConsoleApp1/Order.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConsoleApp1/OrderItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConsoleApp1/OrderItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ConsoleApp1/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ConsoleApp1/Product.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderFlow.Console/OrderFlow.Console.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OrderFlow.Console/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ConsoleApp1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ConsoleApp1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Zad1/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Zad1/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Zad1/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Zad1/.idea/indexLayout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Zad1/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConsoleApp1/ConsoleApp1.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConsoleApp1/Customer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OrderFlow.Console/Models/Customer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConsoleApp1/Order.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OrderFlow.Console/Models/Order.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConsoleApp1/OrderItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OrderFlow.Console/Models/OrderItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConsoleApp1/OrderStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OrderFlow.Console/Models/OrderStatus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConsoleApp1/Product.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OrderFlow.Console/Models/Product.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ConsoleApp1/SampleData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/OrderFlow.Console/Data/SampleData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Zad1.sln" beforeDir="false" afterPath="$PROJECT_DIR$/OrderFlow.sln" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,12 +46,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/ConsoleApp1/Customer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/ConsoleApp1/Order.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/ConsoleApp1/OrderItem.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/ConsoleApp1/OrderStatus.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/ConsoleApp1/Product.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/ConsoleApp1/SampleData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/OrderFlow.Console/Program.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -89,7 +89,7 @@
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
       <option name="AUTO_ATTACH_CHILDREN" value="0" />
-      <option name="PROJECT_PATH" value="$PROJECT_DIR$/ConsoleApp1/ConsoleApp1.csproj" />
+      <option name="PROJECT_PATH" value="$PROJECT_DIR$/OrderFlow.Console/OrderFlow.Console.csproj" />
       <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
       <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
@@ -107,7 +107,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1773939163649</updated>
-      <workItem from="1773939165077" duration="2689000" />
+      <workItem from="1773939165077" duration="3470000" />
     </task>
     <task id="LOCAL-00001" summary="Podstawowe Pliki">
       <option name="closed" value="true" />
@@ -125,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773939670260</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Skończone Zadanie 1">
+      <option name="closed" value="true" />
+      <created>1773942078751</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1773942078751</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -137,7 +145,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Podstawowe Pliki" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="Skończone Zadanie 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Skończone Zadanie 1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
