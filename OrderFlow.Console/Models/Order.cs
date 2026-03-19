@@ -7,5 +7,5 @@ public class Order
     public List<OrderItem> Items { get; set; }
     public OrderStatus Status { get; set; }
     
-    public decimal TotalAmmount => Items.Sum(i => i.TotalPrice);
+    public decimal TotalAmount => Items.Sum(i => i.TotalPrice);
 }
