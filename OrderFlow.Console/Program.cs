@@ -1,7 +1,7 @@
-﻿using System.Collections.Specialized;
-using ConsoleApp1.Data;
+﻿using ConsoleApp1.Data;
 using ConsoleApp1.Models;
 using ConsoleApp1.Services;
+using System.Linq;
 // POCZATEK ZADANIA 2
 var validator = new OrderValidator();
 
@@ -83,3 +83,95 @@ allOrders
     .Take(3)
     .ToList()
     .ForEach(o => Console.WriteLine($"TOP - ID: {o.ID}, TOTAL: {o.TotalAmount:C}"));
+
+// KONIEC ZADANIA 3
+    
+// POCZATEK ZADANIA 4
+
+var products = SampleData.Products;
+var customers = SampleData.Customers;
+var orders = SampleData.Orders;
+    
+Console.WriteLine("\n === LINQ : ZADANIE 4 === \n");
+
+//1. Join Zamowien z Klientami - Grupowanie zamowien po statusie VIP klienta
+//Wybralem Query Syntax, poniewaz joiny sa w tej skladni bardziej czytelne ( przypominaja troche SQL )
+
+var ordersByVipStatus = from o in orders
+    join c in customers on o.Customer.ID equals c.ID
+    group o by c.VIP
+    into g
+    select new { IsVip = g.Key, Orders = g.ToList() };
+    
+    Console.WriteLine("1. Grupowanie po VIP: ");
+    foreach (var group in ordersByVipStatus)
+    {
+        Console.WriteLine($"VIP : {group.IsVip}, Liczba zamowien: {group.Orders.Count}");
+    }
+
+//2. Splaszczanie z SelectMany - Wyciagniecie wszystkich unikalnych nazw produktow z zamowien
+//Wybralem Method Syntax, poniewaz SelectMany jest znacznie krotsze i prostsze w tej formie.
+
+    var allOrderedProducts = orders
+        .SelectMany(o => o.Items)
+        .Select(i => i.Product.Name)
+        .Distinct();
+
+Console.WriteLine($"\n2. Wszystkie Zamowione produkty: {string.Join(", ", allOrderedProducts)}");
+
+//3. GroupBy z agregacja - Srednia Wartosc zamowienia per kategoria produktu
+//Wybralem Method Syntax poniewaz jest to idealna opcja do szybkich agregacji takich jak Average czy Sum.
+
+var avgValuePerCategory = orders
+    .SelectMany(o => o.Items)
+    .GroupBy(o => o.Product.Category)
+    .Select(g => new { Category = g.Key, AvgPrice = g.Average(x => x.TotalPrice) });
+
+Console.WriteLine("\n3. Srednia wartosc per kategoria: ");
+foreach (var item in avgValuePerCategory)
+{
+    Console.WriteLine($"Kategoria: {item.Category}, Srednia: {item.AvgPrice:C}");
+}
+
+//4. GroupJoin (Left Join Pattern) - Lista klientow i ich zamowienia (nawet jezeli nic nie kupili)
+//Wybralem Query Syntax poniewaz w polaczeniu z into jest idealna opcja do wykonania GroupJoin
+
+var CustomerLeads = from c in customers
+                    join o in orders on c.ID equals o.Customer.ID into customerOrders
+                    select new { CustomerName = c.Name, Ordercount = customerOrders.Count() };
+
+Console.WriteLine("\n4. Klienci i liczba ich zamowien (GroupJoin): ");
+CustomerLeads.ToList().ForEach(cl => Console.WriteLine($"Klient: {cl.CustomerName}, Zamowienia:  {cl.Ordercount}"));
+
+//5. Mixed Syntax - Raport: Klient i jego najdrozsze zamowienie
+//Polaczenie Query Syntax (do czytelnego polaczenia danych) z Method Syntax (do wyciagniecia Max).
+
+var customerReport = (from c in customers
+    join o in orders on c.ID equals o.Customer.ID into oGroup
+    select new
+    {
+        Name = c.Name,
+        MaxOrder = oGroup.DefaultIfEmpty().Max(x => x?.TotalAmount ?? 0)
+    }).OrderByDescending(r => r.MaxOrder);
+
+Console.WriteLine("\n5. Najdrozsze zamowienie klienta (MixedSyntax):");
+foreach (var r in customerReport)
+{
+    Console.WriteLine($" Klient: {r.Name}, Max: {r.MaxOrder:C}");
+}
+
+//6. Proste filtrowanie i sortowanie - Top 2 najdrozsze produkty z kategorii Electronics
+//Wybralem Method Syntax poniewaz jest to najlepsza opcja do stosowania w prostych operacjach filtrowania
+
+var topElectronics = products
+    .Where(p => p.Category == "Electronics")
+    .OrderByDescending(p => p.Price)
+    .Take(2);
+
+Console.WriteLine("\n6. TOP 2 Elektronika: ");
+foreach (var p in topElectronics)
+{
+    Console.WriteLine($"Produkt: {p.Name}, Cena: {p.Price:C}");
+}
+    
+//KONIEC ZADANIA 4

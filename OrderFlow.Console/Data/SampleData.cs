@@ -83,7 +83,7 @@ public static class SampleData
         new Order
         {
             ID = 6,
-            Customer = Customers[3],
+            Customer = Customers[2],
             Status = OrderStatus.Cancelled,
             Items = new List<OrderItem>
             {
