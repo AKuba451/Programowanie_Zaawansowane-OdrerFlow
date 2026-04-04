@@ -234,3 +234,31 @@ pipeline.StatusChanged += (sender, e) =>
     totalSw.Stop();
     
     Console.WriteLine($"\nCałkowity czas dla {ordersToProcess.Count} zamowien: {totalSw.ElapsedMilliseconds}ms");
+    //KONIEC ZADANIA 2.2
+    
+    //POCZATEK ZADANIA 2.3
+    var stats = new OrderStatistics();
+    var heavyLoad = Enumerable.Range(0, 1000).SelectMany(_ => SampleData.Orders).ToList();
+    
+    Console.WriteLine("\n=== LABORATORIUM 2 - ZADANIE 3 ===\n");
+    
+    Console.WriteLine("Parallel.ForEach (BEZ ZAPEZPIECZEŃ)...");
+    Parallel.ForEach(heavyLoad, order =>
+    {
+        stats.UpdateUnsafe(order, true, new List<string>());
+    });
+    
+    Console.WriteLine($"[UNSAFE] Przetworzono: {stats.TotalProcessed} / {heavyLoad.Count}");
+    Console.WriteLine($"[UNSAFE] Revenue: {stats.TotalRevenue:C}");
+    Console.WriteLine("UWAGA: Wynik powyzej moze byc bledny (licznik mniejszy niz 6000)!");
+    
+    stats.Reset();
+    Console.WriteLine("\nParallel.ForEach (Z LOCK, INTERLOCKED, CONCURRENT)...");
+    Parallel.ForEach(heavyLoad, order =>
+    {
+        stats.UpdateSafe(order, true, new List<string>());
+    });
+    
+    Console.WriteLine($"[SAFE] Przetworzono: {stats.TotalProcessed} / {heavyLoad.Count}");
+    Console.WriteLine($"[SAFE] Revenue: {stats.TotalRevenue:C}");
+    Console.WriteLine("Wynik SAFE zawsze bedzie poprawny.");
