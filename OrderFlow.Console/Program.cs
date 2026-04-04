@@ -175,33 +175,3 @@ foreach (var p in topElectronics)
 }
     
 //KONIEC ZADANIA 4
-
-//POCZATEK ZADANIA 2.1
-
-var pipeline = new OrderPipeline();
-
-pipeline.StatusChanged += (sender, e) => 
-    Console.WriteLine($"[LOGGER] Zamowienie {e.Order.ID}: {e.OldStatus} -> {e.NewStatus}");
-    pipeline.StatusChanged += (sender, e) =>
-    {
-        if (e.NewStatus == OrderStatus.Completed)
-            Console.WriteLine($"[EMAIL] Do: {e.Order.Customer.Name} Twoje zamowienie {e.Order.ID} zostalo ukonczone !");
-    };
-    
-    pipeline.ValidationCompleted += (sender, e) =>
-    {
-        if (e.isValid)
-        {
-            Console.WriteLine($"[VALIDATOR] Zamowienie {e.Order.ID} przeszlo pomyslnie walidacje");
-        }
-        else
-        {
-            Console.WriteLine($"[VALIDATOR] Blad w zamowieniu {e.Order.ID}: {string.Join(" ,", e.Errors)}");
-        }
-    };
-    
-    Console.WriteLine("=== LABORATORIUM 2 --- ZADANIE 1 ===\n");
-    Console.WriteLine("--- Przetwarzanie Zamowienia 1 ( POPRAWNE ) ---");
-    pipeline.ProcessOrder(SampleData.Orders[0]);
-    Console.WriteLine("--- Przetwarzanie Zamowienia 2 ( NIEPOPRAWNE - ANULOWANE ) ---");
-    pipeline.ProcessOrder(SampleData.Orders[5]);
