@@ -1,6 +1,7 @@
 ﻿using ConsoleApp1.Data;
 using ConsoleApp1.Models;
 using ConsoleApp1.Services;
+using System.Diagnostics;
 using System.Linq;
 // POCZATEK ZADANIA 2
 var validator = new OrderValidator();
@@ -205,3 +206,31 @@ pipeline.StatusChanged += (sender, e) =>
     pipeline.ProcessOrder(SampleData.Orders[0]);
     Console.WriteLine("--- Przetwarzanie Zamowienia 2 ( NIEPOPRAWNE - ANULOWANE ) ---");
     pipeline.ProcessOrder(SampleData.Orders[5]);
+    
+    //KONIEC ZADANIA 2.1
+    
+    //POCZATEK ZADANIA 2.2
+    var asyncProcessor = new AsyncOrderProcessor();
+    var ordersToProcess = SampleData.Orders.Take(5).ToList();
+    
+    Console.WriteLine("\n=== LABORATORIUM 2 --- ZADANIE 2 ===\n");
+    
+    Console.WriteLine("--- TEST 1: Porownanie czasu ---");
+    var sw = Stopwatch.StartNew();
+    
+    Console.WriteLine("Start Przetwarzania rownoleglego (Task.WhenAll)... ");
+    await asyncProcessor.ProcessOrderAsync(ordersToProcess[0]);
+    sw.Stop();
+    long parallelTime = sw.ElapsedMilliseconds;
+    
+    long sequentialTime = 1500 + 2000 + 800;
+    Console.WriteLine($"Czas Rownolegly: {parallelTime}ms");
+    Console.WriteLine($"Przewidywany Czas Sekwencyjny: {sequentialTime}ms");
+    Console.WriteLine($"Zysk czasowy: ok. {sequentialTime - parallelTime}ms\n");
+    
+    Console.WriteLine("--- TEST 2: Wiele Zamowien (SemaphoreSlim max 3) ---");
+    var totalSw = Stopwatch.StartNew();
+    await asyncProcessor.ProcessMultipleOrdersAsync(ordersToProcess);
+    totalSw.Stop();
+    
+    Console.WriteLine($"\nCałkowity czas dla {ordersToProcess.Count} zamowien: {totalSw.ElapsedMilliseconds}ms");
