@@ -262,3 +262,34 @@ pipeline.StatusChanged += (sender, e) =>
     Console.WriteLine($"[SAFE] Przetworzono: {stats.TotalProcessed} / {heavyLoad.Count}");
     Console.WriteLine($"[SAFE] Revenue: {stats.TotalRevenue:C}");
     Console.WriteLine("Wynik SAFE zawsze bedzie poprawny.");
+    
+    // KONIEC ZADANIA 2.3
+    
+    // POCZATEK ZADANIA 3.1
+    
+    Console.WriteLine("\n LABORATORIUM 3 - ZADANIE 1 ===\n");
+    
+    var repo = new OrderRepository();
+    string jsonPath = "data/orders.json";
+    string xmlPath = "data/orders.xml";
+    
+    Console.WriteLine("Zapisywanie danych do JSON i XML...");
+    await repo.SaveToJsonAsync(SampleData.Orders, jsonPath);
+    await repo.SaveToXmlAsync(SampleData.Orders, xmlPath);
+    
+    var loadedFromJson = await repo.LoadFromJsonAsync(jsonPath);
+    var loadedfromXml = await repo.LoadFromXmlAsync(xmlPath);
+    
+    Console.WriteLine($"Oryginalna liczba zamowien: {SampleData.Orders.Count}");
+    Console.WriteLine($"Wczytano z JSON: {loadedFromJson.Count} | Suma: {loadedFromJson.Sum(o => o.TotalAmount):C}");
+    Console.WriteLine($"Wczytano z XML: {loadedfromXml.Count} | Suma: {loadedfromXml.Sum(o => o.TotalAmount):C}");
+
+    if (loadedFromJson.Count == SampleData.Orders.Count &&
+        loadedFromJson.Sum(o => o.TotalAmount) == SampleData.Orders.Sum(o => o.TotalAmount))
+    {
+        Console.WriteLine("\nSUKCES: Dane po round-trip są zgodne!");
+    }
+    else
+    {
+        Console.WriteLine("\nBŁĄD: Dane różnią się od oryginału! ");
+    }
