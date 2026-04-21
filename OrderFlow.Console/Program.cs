@@ -316,3 +316,48 @@ pipeline.StatusChanged += (sender, e) =>
     {
         Console.WriteLine($"- ID: {id}");
     }
+    
+    // KONIEC ZADANIA 3.2
+    
+    // POCZATEK ZADANIA 3.3
+    
+    Console.WriteLine("\n=== LABORATORIUM 3 - ZADANIE 3 ===\n");
+    
+    var pipelineForWatcher = new OrderPipeline();
+    pipelineForWatcher.StatusChanged += (s, e) =>
+        Console.WriteLine($"[PIPELINE EVENT] Zamowienie {e.Order.ID} zmieniło status na: {e.NewStatus}");
+
+    string inboxDir = "inbox";
+    using var watcher = new InboxWatcher(inboxDir, pipelineForWatcher);
+
+    var testOrders = new List<Order>
+    {
+        new Order
+        {
+            ID = 1001, Customer = SampleData.Customers[0], Items = new List<OrderItem>
+            {
+                new OrderItem { Product = SampleData.Products[0], Quantity = 1 },
+            },
+            Status = OrderStatus.New
+        },
+        new Order
+        {
+            ID = 1002, Customer = SampleData.Customers[1], Items = new List<OrderItem>
+            {
+                new OrderItem { Product = SampleData.Products[2], Quantity = 5 }
+            },
+            Status = OrderStatus.New
+        }
+    };
+
+    string testFilePath = Path.Combine(inboxDir, "import_test.json");
+Console.WriteLine($"[DEMO] Generowanie pliku testowego w {testFilePath}...");
+
+var tempRepo = new OrderRepository();
+await tempRepo.SaveToJsonAsync(testOrders, testFilePath);
+
+Console.WriteLine("[DEMO] Oczekiwanie na reakcję watchera...");
+await Task.Delay(5000);
+
+Console.WriteLine("\n[DEMO] Koniec Testu Watchera.");
+        
