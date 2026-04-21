@@ -293,3 +293,26 @@ pipeline.StatusChanged += (sender, e) =>
     {
         Console.WriteLine("\nBŁĄD: Dane różnią się od oryginału! ");
     }
+    
+    // KONIEC ZADANIA 3.1
+    
+    // POCZATEK ZADANIA 3.2
+    
+    Console.WriteLine("\n=== LABORATORIUM 3 - ZADANIE 2 ===\n");
+    var reportBuilder = new XmlReportBuilder();
+    string reportPath = "data/report.xml";
+    
+    Console.WriteLine("Generowanie raportu XML...");
+    var report = reportBuilder.BuildReport(SampleData.Orders);
+    await reportBuilder.SaveReportAsync(report, reportPath);
+    Console.WriteLine($"Raport zapisany w: {reportPath}");
+    
+    decimal threshold = 1000m;
+    Console.WriteLine($"\nSzukanie zamówień powyżej {threshold:C} w pliku raportu...");
+    var highValueIds = await reportBuilder.FindHighValueOrderIdsAsync(reportPath, threshold);
+    
+    Console.WriteLine("Znalezione ID Zamowien: ");
+    foreach (var id in highValueIds)
+    {
+        Console.WriteLine($"- ID: {id}");
+    }
