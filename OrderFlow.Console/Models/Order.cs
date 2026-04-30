@@ -12,8 +12,9 @@ public class Order
     public Customer Customer { get; set; }
     public List<OrderItem> Items { get; set; }
     public OrderStatus Status { get; set; }
+    public string? Notes { get; set; }
     
-    [JsonIgnore]
-    [XmlIgnore]
+    [System.Text.Json.Serialization.JsonIgnore]
+    [System.Xml.Serialization.XmlIgnore]
     public decimal TotalAmount => Items?.Sum(i => i.TotalPrice) ?? 0;
 }
