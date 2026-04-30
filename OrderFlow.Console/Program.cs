@@ -3,6 +3,8 @@ using ConsoleApp1.Models;
 using ConsoleApp1.Services;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+
 // POCZATEK ZADANIA 2
 var validator = new OrderValidator();
 
@@ -360,4 +362,17 @@ Console.WriteLine("[DEMO] Oczekiwanie na reakcję watchera...");
 await Task.Delay(5000);
 
 Console.WriteLine("\n[DEMO] Koniec Testu Watchera.");
-        
+
+// KONIEC ZADANIA 3.3
+// POCZATEK ZADANIA 4.1
+
+Console.WriteLine("\n=== LABORATIORIUM 4 - ZADANIE 1 ===");
+
+using (var context = new OrderFlowContext())
+{
+    context.Database.Migrate();
+    Console.WriteLine("Baza danych została zaktualizowana!");
+
+    var customerCount = context.Customers.Count();
+    Console.WriteLine($"Aktualna Liczba klientów w bazie : {customerCount}");
+}
