@@ -379,7 +379,7 @@ using (var context = new OrderFlowContext())
 */
 // KONIEC ZADANIA 4.1
 // POCZATEK ZADANIA 4.2
-
+/*
 Console.WriteLine("\n=== LABORATORIUM 4 - ZADANIE 2 ===");
 
 using var context = new OrderFlowContext();
@@ -456,7 +456,54 @@ if (customerToDelete != null)
         context.ChangeTracker.Clear();
     }
 }
-
+*/
 // KONIEC ZADANIA 4.2
+// POCZATEK ZADANIA 4.3
+Console.WriteLine("=== Laboratiorum 4 - Zadanie 3 ===");
+
+using var context = new OrderFlowContext();
+await context.Database.MigrateAsync();
+var advancedOps = new AdvancedOperations();
+
+var productsToUpdate = await context.Products.Where(p => p.Stock == 0).ToListAsync();
+foreach (var p in productsToUpdate) p.Stock = 10;
+
+var customersToUpdate = await context.Customers.Where(c => c.City == null).ToListAsync();
+foreach (var c in customersToUpdate) c.City = c.ID % 2 == 0 ? "Warszawa" : "Kraków";
+
+await context.SaveChangesAsync();
 
 
+await advancedOps.RunAdvancedQueriesAsync(context);
+
+
+Console.WriteLine("\n--- TEST TRANSAKCJI ---");
+
+var firstNewOrder = await context.Orders.FirstOrDefaultAsync(o => o.Status == OrderStatus.New);
+if (firstNewOrder != null)
+{
+    Console.WriteLine($"\nPróba procesowania zamówienia #{firstNewOrder.ID} (SUKCES)...");
+    await advancedOps.ProcessOrderAsync(context, firstNewOrder.ID);
+}
+
+var secondNewOrder = await context.Orders
+    .Include(o => o.Items).ThenInclude(i => i.Product)
+    .FirstOrDefaultAsync(o => o.Status == OrderStatus.New);
+
+if (secondNewOrder != null)
+{
+    var missingProduct = secondNewOrder.Items.First().Product;
+    missingProduct.Stock = 0; 
+    await context.SaveChangesAsync();
+
+    Console.WriteLine($"\nPróba procesowania zamówienia #{secondNewOrder.ID} (OCZEKIWANY BŁĄD)...");
+    try
+    {
+        await advancedOps.ProcessOrderAsync(context, secondNewOrder.ID);
+    }
+    catch (InvalidOperationException)
+    {
+        Console.WriteLine($"-> Główny program przechwycił błąd. Dzięki Rollback() status zamówienia #{secondNewOrder.ID} wrócił do stanu początkowego, a inne towary nie zniknęły z magazynu!");
+    }
+}
+// SKONCZONE ZADANIE 4.3

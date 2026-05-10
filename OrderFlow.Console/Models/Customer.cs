@@ -6,4 +6,5 @@ public class Customer
     public string Name { get; set; }
     public bool VIP { get; set; }
     public string? Email { get; set; }
+    public string? City { get; set; }
 }
