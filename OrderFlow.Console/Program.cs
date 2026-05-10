@@ -365,7 +365,7 @@ Console.WriteLine("\n[DEMO] Koniec Testu Watchera.");
 
 // KONIEC ZADANIA 3.3
 // POCZATEK ZADANIA 4.1
-
+/*
 Console.WriteLine("\n=== LABORATIORIUM 4 - ZADANIE 1 ===");
 
 using (var context = new OrderFlowContext())
@@ -376,3 +376,87 @@ using (var context = new OrderFlowContext())
     var customerCount = context.Customers.Count();
     Console.WriteLine($"Aktualna Liczba klientów w bazie : {customerCount}");
 }
+*/
+// KONIEC ZADANIA 4.1
+// POCZATEK ZADANIA 4.2
+
+Console.WriteLine("\n=== LABORATORIUM 4 - ZADANIE 2 ===");
+
+using var context = new OrderFlowContext();
+
+Console.WriteLine("--- Etap 1 : Przygotowanie Bazy Danych ---");
+await context.Database.MigrateAsync();
+await DatabaseSeeder.SeedAsync(context);
+
+Console.WriteLine("\n--- Etap 2 : Operacje CRUD ---");
+
+var myCustomer = await context.Customers.FirstOrDefaultAsync(c => c.Name == "Jakub");
+var product1 = await context.Products.FirstOrDefaultAsync(p => p.Name == "PC");
+var product2 = await context.Products.FirstOrDefaultAsync(p => p.Name == "Keyboard");
+
+if (myCustomer != null && product1 != null && product2 != null)
+{
+    var newOrder = new Order
+    {
+        Customer = myCustomer,
+        Status = OrderStatus.New,
+        Notes = "Zamowienie wygenerowane przez EF Core",
+        Items = new List<OrderItem>
+        {
+            new OrderItem { Product = product1, Quantity = 1, UnitPrice = product1.Price },
+            new OrderItem { Product = product2, Quantity = 1, UnitPrice = product2.Price }
+        }
+    };
+    
+    context.Orders.Add(newOrder);
+    await context.SaveChangesAsync();
+    Console.WriteLine($"-> Dodano nowe zamówienie #{newOrder.ID} z 2 pozycjami dla klienta {myCustomer.Name}.");
+}
+
+Console.WriteLine("\n[R] Odczyt Zamowien...");
+var ordersFromDb = await context.Orders.Include(o => o.Customer).Include(o => o.Items).ThenInclude(i => i.Product).ToListAsync();
+foreach (var order in ordersFromDb)
+{
+    Console.WriteLine($"ID: {order.ID} | Klient: {order.Customer.Name} | Status : {order.Status} | Ilosc Pozycji: {order.Items.Count}");
+}
+Console.WriteLine("\n [U] Zmiana statusu zamowienia...");
+var orderToUpdate = await context.Orders.FirstOrDefaultAsync(o => o.Status == OrderStatus.New);
+
+if (orderToUpdate != null)
+{
+    orderToUpdate.Status = OrderStatus.Processing;
+    orderToUpdate.Notes = "Zmiana status na Processing + notatka";
+    await context.SaveChangesAsync();
+    Console.WriteLine($"-> Zamowienie #{orderToUpdate.ID} zaktualizowane pomyślnie !");
+}
+
+Console.WriteLine("\n[D] Usuwanie anulowanego zamowienia...");
+var orderToDelete = await context.Orders.FirstOrDefaultAsync(o => o.Status == OrderStatus.Cancelled);
+
+if (orderToDelete != null)
+{
+    context.Orders.Remove(orderToDelete);
+    await context.SaveChangesAsync();
+    Console.WriteLine($"-> Zamowienie #{orderToDelete.ID} zostało poprawnie anulowane !");
+}
+
+Console.WriteLine("\n[D] Próba usuniecia klienta, ktory ma zamowienia !");
+var customerToDelete = await context.Customers.FirstOrDefaultAsync(c => c.Name == "Bartosz");
+
+if (customerToDelete != null)
+{
+    try
+    {
+        context.Customers.Remove(customerToDelete);
+        await context.SaveChangesAsync();
+    }
+    catch (Exception ex) when (ex is DbUpdateException || ex is InvalidOperationException)
+    {
+        Console.WriteLine($"-> SUKCES (Oczekiwany Wyjatek) Baza powstrzymala nas przed usunieciem klienta ktory ma zamowienia");
+        context.ChangeTracker.Clear();
+    }
+}
+
+// KONIEC ZADANIA 4.2
+
+
