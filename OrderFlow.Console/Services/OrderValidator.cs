@@ -17,6 +17,7 @@ public class OrderValidator
         
         _funcRules.Add(o => o.Status != OrderStatus.Cancelled);
         _funcRules.Add(o => o.Items.All(i => i.Product != null));
+        _funcRules.Add(o => o.OrderDate <= DateTime.Now);
     }
 
     private bool HasItems(Order order, out string errorMessage)

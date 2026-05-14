@@ -13,6 +13,7 @@ public class Order
     public List<OrderItem> Items { get; set; }
     public OrderStatus Status { get; set; }
     public string? Notes { get; set; }
+    public DateTime OrderDate { get; set; } = DateTime.Now;
     
     [System.Text.Json.Serialization.JsonIgnore]
     [System.Xml.Serialization.XmlIgnore]
