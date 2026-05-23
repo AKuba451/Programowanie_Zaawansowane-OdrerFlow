@@ -58,6 +58,22 @@ public class DiscountCalculatorTests
     }
 
     [Fact]
+    public void CalculateDiscount_StandardCustomerExactly1000_ReturnsZero()
+    {
+        var order = CreateOrder(false, 1000m);
+        var result = _calculator.CalculateDiscount(order);
+        Assert.Equal(0m, result);
+    }
+
+    [Fact]
+    public void CalculateDiscount_VipCustomerExactly5000_Returns15Percent()
+    {
+        var order = CreateOrder(true, 5000m);
+        var result = _calculator.CalculateDiscount(order);
+        Assert.Equal(750m, result);
+    }
+
+    [Fact]
     public void CalculateDiscount_MaxDiscountCappedAt25Percent()
     {
         var order = CreateOrder(true, 6000m);
