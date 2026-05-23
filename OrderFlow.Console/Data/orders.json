@@ -1,0 +1,236 @@
+[
+  {
+    "order_id": 1,
+    "customer": {
+      "id": 1,
+      "name": "Jakub",
+      "vip": true,
+      "email": null,
+      "city": null
+    },
+    "items": [
+      {
+        "id": 1,
+        "product": {
+          "id": 1,
+          "name": "PC",
+          "category": "Electronics",
+          "price": 2000,
+          "stock": 0
+        },
+        "quantity": 2,
+        "unitPrice": 0
+      },
+      {
+        "id": 2,
+        "product": {
+          "id": 2,
+          "name": "SmartPhone",
+          "category": "Electronics",
+          "price": 800,
+          "stock": 0
+        },
+        "quantity": 1,
+        "unitPrice": 0
+      }
+    ],
+    "status": 3,
+    "notes": null,
+    "orderDate": "2026-05-23T18:00:04.8887726+02:00"
+  },
+  {
+    "order_id": 2,
+    "customer": {
+      "id": 2,
+      "name": "Bartosz",
+      "vip": false,
+      "email": null,
+      "city": null
+    },
+    "items": [
+      {
+        "id": 3,
+        "product": {
+          "id": 3,
+          "name": "Keyboard",
+          "category": "Accessory",
+          "price": 120,
+          "stock": 0
+        },
+        "quantity": 1,
+        "unitPrice": 0
+      },
+      {
+        "id": 4,
+        "product": {
+          "id": 2,
+          "name": "SmartPhone",
+          "category": "Electronics",
+          "price": 800,
+          "stock": 0
+        },
+        "quantity": 2,
+        "unitPrice": 0
+      }
+    ],
+    "status": 2,
+    "notes": null,
+    "orderDate": "2026-05-23T18:00:04.8928817+02:00"
+  },
+  {
+    "order_id": 3,
+    "customer": {
+      "id": 4,
+      "name": "Igor",
+      "vip": true,
+      "email": null,
+      "city": null
+    },
+    "items": [
+      {
+        "id": 5,
+        "product": {
+          "id": 1,
+          "name": "PC",
+          "category": "Electronics",
+          "price": 2000,
+          "stock": 0
+        },
+        "quantity": 1,
+        "unitPrice": 0
+      },
+      {
+        "id": 6,
+        "product": {
+          "id": 2,
+          "name": "SmartPhone",
+          "category": "Electronics",
+          "price": 800,
+          "stock": 0
+        },
+        "quantity": 1,
+        "unitPrice": 0
+      },
+      {
+        "id": 7,
+        "product": {
+          "id": 5,
+          "name": "Speaker",
+          "category": "MusicRelated",
+          "price": 100,
+          "stock": 0
+        },
+        "quantity": 2,
+        "unitPrice": 0
+      }
+    ],
+    "status": 3,
+    "notes": null,
+    "orderDate": "2026-05-23T18:00:04.8928834+02:00"
+  },
+  {
+    "order_id": 4,
+    "customer": {
+      "id": 5,
+      "name": "Jacek",
+      "vip": false,
+      "email": null,
+      "city": null
+    },
+    "items": [
+      {
+        "id": 8,
+        "product": {
+          "id": 3,
+          "name": "Keyboard",
+          "category": "Accessory",
+          "price": 120,
+          "stock": 0
+        },
+        "quantity": 1,
+        "unitPrice": 0
+      },
+      {
+        "id": 9,
+        "product": {
+          "id": 5,
+          "name": "Speaker",
+          "category": "MusicRelated",
+          "price": 100,
+          "stock": 0
+        },
+        "quantity": 1,
+        "unitPrice": 0
+      }
+    ],
+    "status": 1,
+    "notes": null,
+    "orderDate": "2026-05-23T18:00:04.8928839+02:00"
+  },
+  {
+    "order_id": 5,
+    "customer": {
+      "id": 2,
+      "name": "Bartosz",
+      "vip": false,
+      "email": null,
+      "city": null
+    },
+    "items": [
+      {
+        "id": 10,
+        "product": {
+          "id": 1,
+          "name": "PC",
+          "category": "Electronics",
+          "price": 2000,
+          "stock": 0
+        },
+        "quantity": 2,
+        "unitPrice": 0
+      },
+      {
+        "id": 11,
+        "product": {
+          "id": 4,
+          "name": "Mouse",
+          "category": "Accessory",
+          "price": 80,
+          "stock": 0
+        },
+        "quantity": 1,
+        "unitPrice": 0
+      }
+    ],
+    "status": 0,
+    "notes": null,
+    "orderDate": "2026-05-23T18:00:04.8928842+02:00"
+  },
+  {
+    "order_id": 6,
+    "customer": {
+      "id": 3,
+      "name": "Julia",
+      "vip": false,
+      "email": null,
+      "city": null
+    },
+    "items": [
+      {
+        "id": 12,
+        "product": {
+          "id": 2,
+          "name": "SmartPhone",
+          "category": "Electronics",
+          "price": 800,
+          "stock": 0
+        },
+        "quantity": 2,
+        "unitPrice": 0
+      }
+    ],
+    "status": 4,
+    "notes": null,
+    "orderDate": "2026-05-23T18:00:04.8928847+02:00"
+  }
+]
