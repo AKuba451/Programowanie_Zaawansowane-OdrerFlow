@@ -1,0 +1,56 @@
+[
+  {
+    "order_id": 1001,
+    "customer": {
+      "id": 1,
+      "name": "Jakub",
+      "vip": true,
+      "email": null,
+      "city": null
+    },
+    "items": [
+      {
+        "id": 0,
+        "product": {
+          "id": 1,
+          "name": "PC",
+          "category": "Electronics",
+          "price": 2000,
+          "stock": 0
+        },
+        "quantity": 1,
+        "unitPrice": 0
+      }
+    ],
+    "status": 0,
+    "notes": null,
+    "orderDate": "2026-05-23T18:00:09.6953898+02:00"
+  },
+  {
+    "order_id": 1002,
+    "customer": {
+      "id": 2,
+      "name": "Bartosz",
+      "vip": false,
+      "email": null,
+      "city": null
+    },
+    "items": [
+      {
+        "id": 0,
+        "product": {
+          "id": 3,
+          "name": "Keyboard",
+          "category": "Accessory",
+          "price": 120,
+          "stock": 0
+        },
+        "quantity": 5,
+        "unitPrice": 0
+      }
+    ],
+    "status": 0,
+    "notes": null,
+    "orderDate": "2026-05-23T18:00:09.6953945+02:00"
+  }
+]

@@ -507,3 +507,25 @@ if (secondNewOrder != null)
     }
 }
 // SKONCZONE ZADANIE 4.3
+// POCZATEK ZADANIA 5.3
+Console.WriteLine("\n=== LABORATORIUM 5 - ZADANIE 3 ===");
+
+var httpClient = new HttpClient();
+var currencyService = new CurrencyService(httpClient);
+var converter = new OrderCurrencyConverter(currencyService);
+
+var sampleOrderForCurrency = await context.Orders
+    .Include(o => o.Items)
+    .FirstOrDefaultAsync(o => o.Status == OrderStatus.Completed);
+
+if (sampleOrderForCurrency != null)
+{
+    Console.WriteLine($"Zamówienie {sampleOrderForCurrency.ID} w PLN: {sampleOrderForCurrency.TotalAmount:C}");
+    
+    var inUsd = await converter.ConvertOrderTotalAsync(sampleOrderForCurrency, "USD");
+    var inEur = await converter.ConvertOrderTotalAsync(sampleOrderForCurrency, "EUR");
+    
+    Console.WriteLine($"Total w USD: {inUsd:F2} USD");
+    Console.WriteLine($"Total w EUR: {inEur:F2} EUR");
+}
+// KONIEC ZADANIA 5.3
